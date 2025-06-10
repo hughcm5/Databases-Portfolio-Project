@@ -1,0 +1,61 @@
+<!--
+Citation for equipment.html: 
+Date: 12/10/23
+Based on bsg.j2 from:
+https://github.com/osu-cs340-ecampus/flask-starter-app 
+Modified using for's, and variables
+from: https://jinja.palletsprojects.com/en/3.1.x/templates/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Equipment</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Equipment List</h1>
+
+    [ <a href="/AllowedJobs">Allowed Jobs</a> | <a href="/AllowedRanks">Allowed Ranks</a> | <a href="/Inventories">Inventories</a> 
+    | <a href="/Equipment">Equipment</a> | <a href="/Miners">Miners</a> | <a href="/Missions">Missions</a> 
+    | <a href="/Resources">Resources</a> | <a href="/ResourceTotal">Resource Total</a> | <a href="/InventoriesHasEquipment">Inventories Has Equipment</a>]
+    <!-- display equipment -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Equipment Name</th>
+                <th>Equipment Type</th>
+                <th>Credit Cost</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in equipment %}
+            <tr>
+                <td>{{ item.equipmentID }}</td>
+                <td>{{ item.equipmentName }}</td>
+                <td>{{ item.equipmentType }}</td>
+                <td>{{ item.creditCost }}</td>
+                <td>
+                    <a href="/update_equipment/{{ item.equipmentID }}">Edit</a>
+                    <form method="POST" action="/delete_equipment/{{ item.equipmentID }}">
+                        <input type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- add new equipment -->
+    <form method="POST" action="/Equipment">
+        <fieldset>
+            <legend>Add New Equipment</legend>
+            <label>Equipment Name: </label><input type="text" name="equipmentName" required><br>
+            <label>Equipment Type: </label><input type="text" name="equipmentType" required><br>
+            <label>Credit Cost: </label><input type="number" name="creditCost" required><br>
+            <input type="submit" value="Add Equipment">
+        </fieldset>
+    </form>
+
+</body>
+</html>

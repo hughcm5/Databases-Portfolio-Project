@@ -1,0 +1,32 @@
+<!--
+Citation for update_rank.html: 
+Date: 12/10/23
+Based on bsg.j2 from:
+https://github.com/osu-cs340-ecampus/flask-starter-app 
+Modified using if's and variables
+from: https://jinja.palletsprojects.com/en/3.1.x/templates/#if
+--><!DOCTYPE html>
+<html>
+<head>
+    <title>Update Allowed Rank</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Update Allowed Rank</h1>
+        <!--form is only displayed if there is a rank to update-->
+
+    {% if rank %}
+        <form method="POST" action="/update_rank/{{ rank.rankName }}">
+            <fieldset>
+                <legend>Edit Rank Details</legend>
+                <label>Rank Name: </label><input type="text" name="rankName" value="{{ rank.rankName }}"><br>
+                <label>Rank ID: </label>
+                <input type="number" name="rankID" value="{{ rank.rankID }}" required><br>
+                <input type="submit" value="Update Rank">
+            </fieldset>
+        </form>
+
+    <a href="/AllowedRanks">Back to Allowed Ranks</a>
+    {% endif %}
+</body>
+</html>

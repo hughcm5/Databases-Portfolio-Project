@@ -1,0 +1,63 @@
+<!--
+Citation for miners.html: 
+Date: 12/10/23
+Based on bsg.j2 from:
+https://github.com/osu-cs340-ecampus/flask-starter-app 
+Modified using for's, and variables
+from: https://jinja.palletsprojects.com/en/3.1.x/templates/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Miners</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Miners</h1>
+    [ <a href="/AllowedJobs">Allowed Jobs</a> | <a href="/AllowedRanks">Allowed Ranks</a> | <a href="/Inventories">Inventories</a> 
+    | <a href="/Equipment">Equipment</a> | <a href="/Miners">Miners</a> | <a href="/Missions">Missions</a> 
+    | <a href="/Resources">Resources</a> | <a href="/ResourceTotal">Resource Total</a> | <a href="/InventoriesHasEquipment">Inventories Has Equipment</a>]
+
+    <!-- display dwarven miners -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Miner ID</th>
+                <th>Job Name</th>
+                <th>Rank Name</th>
+                <th>Inventory ID</th>
+                <th>Active Mission</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for miner in miners %}
+            <tr>
+                <td>{{ miner.minerID }}</td>
+                <td>{{ miner.jobName }}</td>
+                <td>{{ miner.rankName }}</td>
+                <td>{{ miner.inventoryID }}</td>
+                <td>{{ miner.activeMission }}</td>
+                <td>
+                    <a href="/update_miner/{{ miner.minerID }}">Edit</a>
+                    <form method="POST" action="/delete_miner/{{ miner.minerID }}">
+                        <input type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <!-- add new miner -->
+    <form method="POST" action="/Miners">
+      <fieldset>
+          <legend>Add New Miner</legend>
+          <label>Job Name: </label><input type="text" name="jobName" required><br>
+          <label>Rank Name: </label><input type="text" name="rankName" required><br>
+          <label>Inventory ID: </label><input type="number" name="inventoryID"><br>
+          <label>Active Mission: </label><input type="number" name="activeMission"><br>
+          <input type="submit" value="Add Miner">
+      </fieldset>
+  </form>
+</body>
+</html>

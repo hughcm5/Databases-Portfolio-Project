@@ -1,0 +1,36 @@
+<!--
+Citation for update_equipment.html: 
+Date: 12/10/23
+Based on bsg.j2 from:
+https://github.com/osu-cs340-ecampus/flask-starter-app 
+Modified using if's, and variables
+from: https://jinja.palletsprojects.com/en/3.1.x/templates/#if
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Equipment</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Update Equipment</h1>
+        <!--form is only displayed if there is equipment to update-->
+    {% if equipment %}
+        <form method="POST" action="/update_equipment/{{ equipment.equipmentID }}">
+            <fieldset>
+                <legend>Edit Equipment Details</legend>
+                <label>Equipment Name: </label>
+                <input type="text" name="equipmentName" value="{{ equipment.equipmentName }}" required><br>
+                <label>Equipment Type: </label>
+                <input type="text" name="equipmentType" value="{{ equipment.equipmentType }}" required><br>
+                <label>Credit Cost: </label>
+                <input type="number" name="creditCost" value="{{ equipment.creditCost }}" required><br>
+                <input type="hidden" name="equipmentID" value="{{ equipment.equipmentID }}">
+                <input type="submit" value="Update Equipment">
+            </fieldset>
+        </form>
+
+    <a href="/Equipment">Back to Equipment</a>
+    {% endif %}
+</body>
+</html>

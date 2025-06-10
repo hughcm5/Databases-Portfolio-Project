@@ -1,0 +1,39 @@
+<!--
+Citation for update_miner.html: 
+Date: 12/10/23
+Based on bsg.j2 from:
+https://github.com/osu-cs340-ecampus/flask-starter-app 
+Modified using if's and variables
+from: https://jinja.palletsprojects.com/en/3.1.x/templates/#if
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Miner</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Update Miner</h1>
+    <!--form is only displayed if there is a miner to update-->
+
+    
+    {% if miner %}
+        <form method="POST" action="/update_miner/{{ miner.minerID }}">
+            <fieldset>
+                <legend>Edit Miner Details</legend>
+                <label>Job Name: </label>
+                <input type="text" name="jobName" value="{{ miner.jobName }}" required><br>
+                <label>Rank Name: </label>
+                <input type="text" name="rankName" value="{{ miner.rankName }}" required><br>
+                <label>Inventory ID: </label>
+                <input type="number" name="inventoryID" value="{{ miner.inventoryID }}"><br>
+                <label>Active Mission: </label>
+                <input type="number" name="activeMission" value="{{ miner.activeMission }}"><br>
+                <input type="submit" value="Update Miner">
+            </fieldset>
+        </form>
+
+    <a href="/Miners">Back to Miners</a>
+    {% endif %}
+</body>
+</html>

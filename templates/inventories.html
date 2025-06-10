@@ -1,0 +1,59 @@
+<!--
+Citation for inventories.html: 
+Date: 12/10/23
+Based on bsg.j2 from:
+https://github.com/osu-cs340-ecampus/flask-starter-app 
+Modified using for's, and variables
+from: https://jinja.palletsprojects.com/en/3.1.x/templates/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventories</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Inventories</h1>
+
+    [ <a href="/AllowedJobs">Allowed Jobs</a> | <a href="/AllowedRanks">Allowed Ranks</a> | <a href="/Inventories">Inventories</a> 
+    | <a href="/Equipment">Equipment</a> | <a href="/Miners">Miners</a> | <a href="/Missions">Missions</a> 
+    | <a href="/Resources">Resources</a> | <a href="/ResourceTotal">Resource Total</a> | <a href="/InventoriesHasEquipment">Inventories Has Equipment</a>]
+
+    <!-- display inventories -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Equipment Owned</th>
+                <th>Credit Balance</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for inventory in inventories %}
+            <tr>
+                <td>{{ inventory.inventoryID }}</td>
+                <td>{{ inventory.equipmentOwned }}</td>
+                <td>{{ inventory.creditBalance }}</td>
+                <td>
+                    <a href="/update_inventory/{{ inventory.inventoryID}}">Edit</a>
+                    <form method="POST" action="/delete_inventory/{{ inventory.inventoryID }}">
+                        <input type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- add new inventory -->
+    <form method="POST" action="/Inventories">
+        <fieldset>
+            <legend>Add New Inventory</legend>
+            <label>Equipment Quantity: </label><input type="number" name="equipmentOwned" required><br>
+            <label>Credit Total: </label><input type="number" name="creditBalance" required><br>
+            <input type="submit" value="Add Inventory">
+        </fieldset>
+    </form>
+</body>
+</html>

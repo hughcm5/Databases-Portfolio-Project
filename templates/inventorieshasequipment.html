@@ -1,0 +1,55 @@
+<!--
+Citation for inventorieshasequipment.html: 
+Date: 12/10/23
+Based on bsg.j2 from:
+https://github.com/osu-cs340-ecampus/flask-starter-app 
+Modified using for's, and variables
+from: https://jinja.palletsprojects.com/en/3.1.x/templates/
+-->
+<html>
+<head>
+<title>Inventories Has Equipment</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Inventories Has Equipment</h1>
+
+    [ <a href="/AllowedJobs">Allowed Jobs</a> | <a href="/AllowedRanks">Allowed Ranks</a> | <a href="/Inventories">Inventories</a> 
+    | <a href="/Equipment">Equipment</a> | <a href="/Miners">Miners</a> | <a href="/Missions">Missions</a> 
+    | <a href="/Resources">Resources</a> | <a href="/ResourceTotal">Resource Total</a> | <a href="/InventoriesHasEquipment">Inventories Has Equipment</a>]
+        <!-- display resources -->
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Equipment ID</th>
+                    <th>InevntoryID</th>
+                    <th> Actions </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row.equipmentID }}</td>
+                    <td>{{ row.inventoryID }}</td>
+                    <td>
+                        <a href="/update_inventories_has_equipment/{{ row.equipmentID }}">Edit</a>
+                        <form method="POST" action="/delete_inventories_has_equipment/{{ row.equipmentID }}">
+                            <input type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    <!-- add new resourcetotal -->
+    <form method="POST" action="/InventoriesHasEquipment">
+        <fieldset>
+            <legend>Add New</legend>
+            <label>Equipment ID: </label><input type="text" name="equipmentID" required><br>
+            <label>Inventory ID: </label><input type="text" name="inventoryID" required><br>
+            <input type="submit" value="Add">
+        </fieldset>
+    </form>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!--
+Citation for update_job.html: 
+Date: 12/10/23
+Based on bsg.j2 from:
+https://github.com/osu-cs340-ecampus/flask-starter-app 
+Modified using if's and variables
+from: https://jinja.palletsprojects.com/en/3.1.x/templates/#if
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Allowed Job</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Update Allowed Job</h1>
+    
+    {% if job %}
+        <form method="POST" action="/update_job/{{ job.jobName }}">
+            <fieldset>
+                <legend>Edit Job Details</legend>
+                <label>Job Name: </label><input type="text" name="jobName" value="{{ job.jobName }}"><br>
+                <label>Job ID: </label>
+                <input type="number" name="jobID" value="{{ job.jobID }}" required><br>
+                <input type="submit" value="Update Job">
+            </fieldset>
+        </form>
+
+    <a href="/AllowedJobs">Back to Allowed Jobs</a>
+    {% endif %}
+</body>
+</html>

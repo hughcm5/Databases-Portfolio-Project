@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Allowed Ranks</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Allowed Ranks</h1>
+    [ <a href="/AllowedJobs">Allowed Jobs</a> | <a href="/AllowedRanks">Allowed Ranks</a> | <a href="/Inventories">Inventories</a> 
+    | <a href="/Equipment">Equipment</a> | <a href="/Miners">Miners</a> | <a href="/Missions">Missions</a> 
+    | <a href="/Resources">Resources</a> | <a href="/ResourceTotal">Resource Total</a> | <a href="/InventoriesHasEquipment">Inventories Has Equipment</a>]
+    
+    <!-- display ranks -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Rank Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rank in allowed_ranks %}
+            <tr>
+                <td>{{ rank.rankID }}</td>
+                <td>{{ rank.rankName }}</td>
+                <td>
+                    <a href="/update_rank/{{ rank.rankName }}">Edit</a>
+                    <form method="POST" action="/delete_rank/{{ rank.rankName }}">
+                        <input type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- add new rank -->
+<form method="POST" action="/AllowedRanks">
+    <fieldset>
+        <legend>Add New Rank</legend>
+        <label>Rank Name: </label><input type="text" name="rankName" required><br>
+        <label>Rank ID: </label><input type="number" name="rankID" required><br>
+        <input type="submit" value="Add Rank">
+    </fieldset>
+</form>
+</body>
+</html>

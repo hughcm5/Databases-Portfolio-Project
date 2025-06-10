@@ -1,0 +1,35 @@
+<!--
+Citation for update_rank.html: 
+Date: 12/10/23
+Based on bsg.j2 from:
+https://github.com/osu-cs340-ecampus/flask-starter-app 
+Modified using if's and variables
+from: https://jinja.palletsprojects.com/en/3.1.x/templates/#if
+--><!DOCTYPE html>
+<html>
+<head>
+    <title>Update Resource</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Update Resource</h1>
+        <!--form is only displayed if there is a resource to update-->
+
+    
+    {% if resource %}
+        <form method="POST" action="/update_resource/{{ resource.resourceID }}">
+            <fieldset>
+                <legend>Edit Resource Details</legend>
+                <label>Resource Name: </label>
+                <input type="text" name="resourceName" value="{{ resource.resourceName }}" required><br>
+                <label>Resource Value: </label>
+                <input type="number" name="resourceValue" value="{{ resource.resourceValue }}" required><br>
+                <input type="submit" value="Update Resource">
+            </fieldset>
+        </form>
+
+    <a href="/Resources">Back to Resources</a>
+
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!--
+Citation for update_miner.html: 
+Date: 12/10/23
+Based on bsg.j2 from:
+https://github.com/osu-cs340-ecampus/flask-starter-app 
+Modified using if's and variables
+from: https://jinja.palletsprojects.com/en/3.1.x/templates/#if
+--><!DOCTYPE html>
+<html>
+<head>
+    <title>Update Mission</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Update Mission</h1>
+        <!--form is only displayed if there is a mission to update-->
+
+    
+    {% if mission %}
+        <form method="POST" action="/update_mission/{{ mission.missionID }}">
+            <fieldset>
+                <legend>Edit Mission Details</legend>
+                <label>Mission Type: </label>
+                <input type="text" name="missionType" value="{{ mission.missionType }}" required><br>
+                <label>Credit Reward: </label>
+                <input type="number" name="creditReward" value="{{ mission.creditReward }}" required><br>
+                <label>Resource ID: </label>
+                <input type="number" name="resourceID" value="{{ mission.resourceID }}"><br>
+                <input type="submit" value="Update Mission">
+            </fieldset>
+        </form>
+
+    <a href="/Missions">Back to Missions</a>
+    {% endif %}
+</body>
+</html>

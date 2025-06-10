@@ -1,0 +1,36 @@
+<!--
+Citation for update_inventories_has_equipment.html: 
+Date: 12/10/23
+Based on bsg.j2 from:
+https://github.com/osu-cs340-ecampus/flask-starter-app 
+Modified using if's and variables
+from: https://jinja.palletsprojects.com/en/3.1.x/templates/#if
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Inventory Has Equipment</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Update Equipment Inventories</h1>
+        <!--form is only displayed if there is something to update-->
+
+    
+    {% if equipment_inventories %}
+        <form method="POST" action="/update_inventories_has_equipment/{{ equipment_inventories.equipmentID }}">
+            <fieldset>
+                <legend>Edit Details</legend>
+                <label>Equipment ID: </label>
+                <input type="text" name="equipmentID" value="{{ equipment_inventories.equipmentID }}" required><br>
+                <label>Inventory ID: </label>
+                <input type="text" name="inventoryID" value="{{ equipment_inventories.inventoryID }}" required><br>
+                <input type="submit" value="Update Equipment Inventories">
+            </fieldset>
+        </form>
+
+    <a href="/InventoriesHasEquipment">Back to Resource Total</a>
+
+    {% endif %}
+</body>
+</html>

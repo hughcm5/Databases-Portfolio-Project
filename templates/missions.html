@@ -1,0 +1,61 @@
+<!--
+Citation for missions.html: 
+Date: 12/10/23
+Based on bsg.j2 from:
+https://github.com/osu-cs340-ecampus/flask-starter-app 
+Modified using for's, and variables
+from: https://jinja.palletsprojects.com/en/3.1.x/templates/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Missions</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Missions</h1>
+
+    [ <a href="/AllowedJobs">Allowed Jobs</a> | <a href="/AllowedRanks">Allowed Ranks</a> | <a href="/Inventories">Inventories</a> 
+    | <a href="/Equipment">Equipment</a> | <a href="/Miners">Miners</a> | <a href="/Missions">Missions</a> 
+    | <a href="/Resources">Resources</a> | <a href="/ResourceTotal">Resource Total</a> | <a href="/InventoriesHasEquipment">Inventories Has Equipment</a>]
+
+    <!-- display missions -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Mission ID</th>
+                <th>Mission Type</th>
+                <th>Credit Reward</th>
+                <th>Resource ID</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mission in missions %}
+            <tr>
+                <td>{{ mission.missionID }}</td>
+                <td>{{ mission.missionType }}</td>
+                <td>{{ mission.creditReward }}</td>
+                <td>{{ mission.resourceID }}</td>
+                <td>
+                    <a href="/update_mission/{{ mission.missionID }}">Edit</a>
+                    <form method="POST" action="/delete_mission/{{ mission.missionID }}">
+                        <input type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <!-- add new mission -->
+        <form method="POST" action="/Missions">
+            <fieldset>
+                <legend>Add New Mission</legend>
+                <label>Mission Type: </label><input type="text" name="missionType" required><br>
+                <label>Credit Reward: </label><input type="number" name="creditReward" required><br>
+                <label>Resource ID: </label><input type="number" name="resourceID"><br>
+                <input type="submit" value="Add Mission">
+            </fieldset>
+        </form>
+</body>
+</html>

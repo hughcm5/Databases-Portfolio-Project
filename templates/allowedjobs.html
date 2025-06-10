@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Allowed Jobs</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Allowed Jobs</h1>
+
+    [ <a href="/AllowedJobs">Allowed Jobs</a> | <a href="/AllowedRanks">Allowed Ranks</a> | <a href="/Inventories">Inventories</a> 
+    | <a href="/Equipment">Equipment</a> | <a href="/Miners">Miners</a> | <a href="/Missions">Missions</a> 
+    | <a href="/Resources">Resources</a> | <a href="/ResourceTotal">Resource Total</a> | <a href="/InventoriesHasEquipment">Inventories Has Equipment</a>]
+    
+    <p>Jobs in <i>Deep Rock Galactic</i>:</p>
+    <ul>
+        <li>Scout</li>
+        <li>Gunner</li>
+        <li>Engineer</li>
+        <li>Driller</li>
+    </ul>
+
+    <!-- display jobs -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Job Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in allowed_jobs %}
+            <tr>
+                <td>{{ job.jobID }}</td>
+                <td>{{ job.jobName }}</td>
+                <td>
+                    <a href="/update_job/{{ job.jobName }}">Edit</a>
+                    <form method="POST" action="/delete_job/{{ job.jobName }}">
+                        <input type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- add new job -->
+    <form method="POST" action="/AllowedJobs">
+        <fieldset>
+            <legend>Add New Job</legend>
+            <label>Job Name: </label><input type="text" name="jobName" required><br>
+            <label>Job ID: </label><input type="number" name="jobID" required><br>
+            <input type="submit" value="Add Job">
+        </fieldset>
+    </form>
+</body>
+</html>
